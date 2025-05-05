@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: deepseek-gemma-app
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      - LANGCHAIN_API_KEY=your_api_key
+    networks:
+      - deepseek-net
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama-container
+    ports:
+      - "11434:11434"
+    networks:
+      - deepseek-net
+
+networks:
+  deepseek-net:
+    driver: bridge
